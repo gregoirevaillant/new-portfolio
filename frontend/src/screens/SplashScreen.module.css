@@ -1,0 +1,35 @@
+.wrapper {
+    background-color: var(--color-background);
+    width: 100vw;
+    height: 100vh;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    font-size: 4rem;
+    overflow: hidden;
+}
+
+.title {
+    display: flex;
+    gap: 0.01em;
+}
+
+.letter {
+    display: inline-block;
+    opacity: 0;
+    transform: translateY(100px);
+    animation: dropIn 0.1s ease-out forwards;
+}
+
+@keyframes dropIn {
+    0% {
+        opacity: 0;
+        transform: translateY(100px);
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}

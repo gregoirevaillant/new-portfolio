@@ -21,7 +21,7 @@ function formatter(type: string, message: string) {
 	}
 }
 
-const logger = (level: "INFO" | "WARN" | "ERROR", message: string) => {
+const logger = (level: "INFO" | "WARN" | "ERROR", message: any) => {
 	const date = getTimestamp();
 	const paddedLevel = level.padEnd(6, " ");
 	const colorize = colors[level] || chalk.white;
@@ -29,8 +29,8 @@ const logger = (level: "INFO" | "WARN" | "ERROR", message: string) => {
 	console.log(`[${date}] ${colorize(`[${paddedLevel}]:`)} ${message}`);
 };
 
-export const logInfo = (message: string) => logger("INFO", message);
-export const logWarn = (message: string) => logger("WARN", message);
-export const logError = (message: string) => logger("ERROR", message);
+export const logInfo = (message: any) => logger("INFO", message);
+export const logWarn = (message: any) => logger("WARN", message);
+export const logError = (message: any) => logger("ERROR", message);
 
 export default logger;

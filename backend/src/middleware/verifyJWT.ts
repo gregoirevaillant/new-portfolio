@@ -4,29 +4,40 @@ import jwt from "jsonwebtoken";
 import { CustomRequest } from "../types/CustomRequest";
 
 interface DecodedToken {
-	email: string;
-	userID: string;
-	roles: number[];
+    email: string;
+    userID: string;
 }
 
 const verifyJWT = (req: CustomRequest, res: Response, next: NextFunction) => {
-	const authHeader = req.headers.authorization || (req.headers.Authorization as string);
+    const authHeader =
+        req.headers.authorization || (req.headers.Authorization as string);
 
-	if (!authHeader?.startsWith("Bearer ")) {
-		return res.status(401).json({ message: "Unauthorized" });
-	}
+    if (!authHeader?.startsWith("Bearer ")) {
+        res.status(401).json({ message: "Unauthorized" });
+        return;
+    }
 
-	const token = authHeader.split(" ")[1];
+    const token = authHeader.split(" ")[1];
 
-	if (!token) return res.status(401).json({ error: "Access denied" });
+    if (!token) {
+        res.status(401).json({ error: "Access denied" });
+        return;
+    }
 
-	jwt.verify(token, process.env.ACCESS_TOKEN_SECRET as string, (err, decoded) => {
-		if (err) return res.status(403).json({ message: "Forbidden" });
-		const decodedToken = decoded as DecodedToken;
-		req.userID = decodedToken.userID;
-		req.roles = decodedToken.roles;
-		next();
-	});
+    jwt.verify(
+        token,
+        process.env.ACCESS_TOKEN_SECRET as string,
+        (err, decoded) => {
+            if (err) {
+                res.status(403).json({ message: "Forbidden" });
+                return;
+            }
+
+            const decodedToken = decoded as DecodedToken;
+            req.userID = decodedToken.userID;
+            next();
+        }
+    );
 };
 
 export default verifyJWT;

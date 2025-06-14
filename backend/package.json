@@ -6,7 +6,8 @@
   "scripts": {
     "build": "npm install typescript && npx tsc",
     "start": "node ./dist/server.js",
-    "dev": "nodemon ./src/server.ts"
+    "dev": "nodemon ./src/server.ts",
+    "local": "nodemon ./src/server.ts"
   },
   "author": "",
   "license": "ISC",
@@ -19,12 +20,14 @@
     "typescript": "^5.8.3"
   },
   "dependencies": {
+    "bcryptjs": "^3.0.2",
     "chalk": "^4.1.2",
     "cookie-parser": "^1.4.7",
     "cors": "^2.8.5",
     "dayjs": "^1.11.13",
     "dotenv": "^16.5.0",
     "express": "^4.21.2",
+    "express-async-handler": "^1.2.0",
     "express-rate-limit": "^7.5.0",
     "jsonwebtoken": "^9.0.2",
     "mongoose": "^8.15.1",
